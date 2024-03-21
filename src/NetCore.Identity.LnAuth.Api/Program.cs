@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NetCore.Identity.LnAuth.Api.Configuration;
+using NetCore.Identity.LnAuth.Api.CQRS.Register.Commands;
 using NetCore.Identity.LnAuth.Api.Database;
 using NetCore.Identity.LnAuth.Api.Domain.Entities;
 using NetCore.Identity.LnAuth.Api.Hubs;
@@ -23,6 +24,7 @@ builder.Services.AddSingleton(authSettings);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSignalR();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<LnLoginHandler>());
 builder.Services.AddControllers();
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
@@ -141,3 +143,5 @@ await DatabaseInitializer.RunMigrationsAsync(app.Services);
 app.UseSpa(spa => { spa.Options.SourcePath = "spa/"; });
 
 app.Run();
+
+public partial class Program {}

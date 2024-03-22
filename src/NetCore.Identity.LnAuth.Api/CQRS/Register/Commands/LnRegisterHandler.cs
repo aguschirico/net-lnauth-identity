@@ -65,7 +65,6 @@ public class LnRegisterHandler(
         var user = new AppUser()
         {
             PubKey = request.Key,
-            K1 = request.K1,
             UserName = username
         };
 

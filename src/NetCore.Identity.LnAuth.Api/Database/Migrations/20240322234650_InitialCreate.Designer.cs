@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetCore.Identity.LnAuth.Api.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240304165918_InitialCreate")]
+    [Migration("20240322234650_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -174,9 +174,6 @@ namespace NetCore.Identity.LnAuth.Api.Database.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("K1")
-                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");

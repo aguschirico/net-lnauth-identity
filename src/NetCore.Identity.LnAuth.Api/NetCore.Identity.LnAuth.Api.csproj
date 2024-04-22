@@ -10,24 +10,21 @@
 
     <ItemGroup>
         <PackageReference Include="MediatR" Version="12.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+        <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
-        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.4.0" />
-        <PackageReference Include="NBitcoin" Version="7.0.36" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="Npgsql" Version="8.0.2" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" />
+        <PackageReference Include="NBitcoin" />
+        <PackageReference Include="Newtonsoft.Json"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+        <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
     </ItemGroup>
 
     <ItemGroup>

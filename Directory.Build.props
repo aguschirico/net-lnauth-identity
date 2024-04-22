@@ -1,0 +1,14 @@
+<Project>
+  <PropertyGroup>
+    <!-- For non-SDK projects that import this file and then import Microsoft.Common.props,
+         tell Microsoft.Common.props not to import Directory.Build.props again. -->
+    <ImportDirectoryBuildProps>false</ImportDirectoryBuildProps>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <NoWarn>CA1707</NoWarn>
+    <Nullable>enable</Nullable>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Deterministic>true</Deterministic>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+</Project>

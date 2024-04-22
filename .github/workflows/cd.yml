@@ -1,0 +1,85 @@
+name: CI CD To Azure
+
+on:
+  workflow_dispatch:  
+  push:
+    tags: ["v*.*.*"]
+
+env:
+  tf_version: 1.7.4
+  tf_state_resource_group_name: rg-lnauth-demo
+  tf_state_storage_account_name: lnauthdemotfstate
+  tf_state_container_name: tfstate
+  tf_working_directory: ./deploy
+  TF_VAR_PRODUCT_NAME: lnauthdemo
+  TF_VAR_RESOURCE_GROUP: rg-lnauth-demo
+  TF_VAR_POSTGRES_ADMIN_USERNAME: ${{ secrets.PG_ADMIN_USERNAME }}
+  TF_VAR_POSTGRES_ADMIN_PASSWORD: ${{ secrets.PG_ADMIN_PASSWORD }}
+  TF_VAR_USER_ASSIGNED_IDENTITY_NAME: lnauth-demo-app-id
+  TF_VAR_AUTH_SECRET_KEY: ${{ secrets.AUTH_SECRET_KEY }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get tag
+        id: tag
+        run: |
+          prefix="v"
+          release_tag="${{ github.ref_name }}"
+          stripped_tag=${release_tag#"$prefix"}
+          echo "tag=$stripped_tag" >> $GITHUB_OUTPUT
+      - name: Log into registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.ACR_ENDPOINT }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+      - name: Build & Push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          build-args: |
+            version=${{ steps.tag.outputs.tag }}
+          tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.TF_VAR_PRODUCT_NAME }}:${{ steps.tag.outputs.tag }}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.tf_version }}
+
+      - name: Get tag
+        id: tag
+        run: |
+          prefix="v"
+          release_tag="${{ github.ref_name }}"
+          stripped_tag=${release_tag#"$prefix"}
+          echo "tag=$stripped_tag" >> $GITHUB_OUTPUT
+
+      - name: Terraform init azurerm backend
+        uses: ahmedig/terraform-azurerm-backend@v4
+        with:
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          resource_group_name: ${{ env.tf_state_resource_group_name }}
+          storage_account_name: ${{ env.tf_state_storage_account_name }}
+          container_name: ${{ env.tf_state_container_name }}
+          tf_working_directory: ${{env.tf_working_directory}}
+          
+      - name: Terraform plan
+        id: plan
+        run: |
+          export TF_VAR_VERSION_TAG=${{ steps.tag.outputs.tag }}
+          terraform plan -out=tfplan
+        working-directory: ${{env.tf_working_directory}}
+        
+      - name: Terraform Apply
+        id: apply
+        shell: bash
+        run: |
+          terraform apply -input=false -no-color tfplan 
+        working-directory: ${{env.tf_working_directory}}

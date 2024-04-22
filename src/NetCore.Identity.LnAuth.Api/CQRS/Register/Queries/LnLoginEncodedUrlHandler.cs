@@ -5,6 +5,7 @@ using NetCore.Identity.LnAuth.Api.ApiModels;
 using NetCore.Identity.LnAuth.Api.Database;
 using NetCore.Identity.LnAuth.Api.Domain.Entities;
 using NetCore.Identity.LnAuth.Api.Hubs;
+using NetCore.Identity.LnAuth.Api.LnUrl;
 
 namespace NetCore.Identity.LnAuth.Api.CQRS.Register.Queries;
 
@@ -22,7 +23,7 @@ public class LnLoginEncodedUrlHandler(AppDbContext dbContext) : IRequestHandler<
         var queryString = $"?k1={k1}&tag=login&action=login";
         url += queryString;
 
-        var encodedUri = LnUrl.UrlEncoder.EncodeUri(new Uri(url), null, true);
+        var encodedUri = UrlEncoder.EncodeUri(new Uri(url), null!, true);
         dbContext.LinkingKeys.Add(new LightningAuthLinkingKey
         {
             Type = LinkingKeyTypes.Login,

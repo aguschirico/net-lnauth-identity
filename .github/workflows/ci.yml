@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: dotnet build src/NetCore.Identity.LnAuth.Api/NetCore.Identity.LnAuth.Api.csproj
+      - run: dotnet test

@@ -45,7 +45,7 @@ const LightningLogin = ({
             })
           );
           messageApi.success("Login exitoso!", 3).then(() => {
-            navigate("/bets");
+            navigate("/dashboard");
           });
         } else {
           messageApi.error(authResult.reason);

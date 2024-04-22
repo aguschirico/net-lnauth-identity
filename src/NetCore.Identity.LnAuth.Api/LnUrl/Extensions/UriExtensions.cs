@@ -6,6 +6,8 @@ namespace NetCore.Identity.LnAuth.Api.LnUrl.Extensions;
 
 public static class UriExtensions
 {
+    private static readonly char[] TrimChars = ['?', ' '];
+
     public static NameValueCollection ParseQueryString(this Uri address)
     {
         NameValueCollection queryParameters = new NameValueCollection();
@@ -19,7 +21,7 @@ public static class UriExtensions
             string[] parts = segment.Split('=');
             if (parts.Length > 0)
             {
-                string key = parts[0].Trim(new char[] { '?', ' ' });
+                string key = parts[0].Trim(TrimChars);
                 string val = parts[1].Trim();
 
                 queryParameters.Add(key, val);

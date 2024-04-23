@@ -100,18 +100,6 @@ resource "azurerm_container_app" "main" {
         name = "ApplicationInsights__ConnectionString"
         value = "${azurerm_application_insights.insights.connection_string}"
       }
-      env {
-        name = "FootballApiConfiguration__BaseUrl"
-        value = "${var.FOOTBALL_API_URL}"
-      }
-      env {
-        name = "FootballApiConfiguration__Token"
-        value = "${var.FOOTBALL_API_KEY}"
-      }
-      env {
-        name = "FootballApiConfiguration__EnabledCompetitions"
-        value = "${var.FOOTBALL_API_ENABLED_COMPETITIONS}"
-      }
     }
   }
 }

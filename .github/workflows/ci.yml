@@ -14,5 +14,4 @@ jobs:
         with:
           global-json-file: global.json
       - run: dotnet build src/NetCore.Identity.LnAuth.Api/NetCore.Identity.LnAuth.Api.csproj
-      - run: ls
       - run: dotnet test 

@@ -20,6 +20,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Dev
     steps:
       - uses: actions/checkout@v4
       - name: Get tag

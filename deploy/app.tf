@@ -93,7 +93,7 @@ resource "azurerm_container_app" "main" {
         value = "${var.AUTH_SECRET_KEY}"
       }
       env {
-        name = "ConnectionStrings__LightningBetsDbContext"
+        name = "ConnectionStrings__AppDbContext"
         value = "Server=${azurerm_postgresql_flexible_server.postgres_server.fqdn};Port=5432;Database=${azurerm_postgresql_flexible_server_database.postgres_db.name};User Id=${var.POSTGRES_ADMIN_USERNAME};Password=${var.POSTGRES_ADMIN_PASSWORD};"
       }
       env {

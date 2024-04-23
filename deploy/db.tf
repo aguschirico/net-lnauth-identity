@@ -1,7 +1,7 @@
 resource "azurerm_postgresql_flexible_server" "postgres_server" {
   name                   = "pg-${var.PRODUCT_NAME}"
   resource_group_name    = data.azurerm_resource_group.main.name
-  location               = data.azurerm_resource_group.main.location
+  location               = "francesouth"
   version                = "15"
   administrator_login    = var.POSTGRES_ADMIN_USERNAME
   administrator_password = var.POSTGRES_ADMIN_PASSWORD
